@@ -12,5 +12,11 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = os.urandom(24)  # Set to a fixed value when putting into production environment
 app.config['SESSION_COOKIE_NAME'] = 'session_warp'
 
+
+@app.route('/', methods=["GET"])
+def root():
+    return 'Hello warp!'
+
+
 if __name__ == "__main__":
     CORS(app)

@@ -84,5 +84,10 @@ def uploadfile():
             return json.dumps(json_response)
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return redirect('/')
+
+
 if __name__ == "__main__":
     CORS(app)

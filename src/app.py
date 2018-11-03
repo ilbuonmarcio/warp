@@ -32,11 +32,16 @@ def root():
 
 @app.route('/getfile/<path:path>', methods=["GET"])
 def getfile(path):
-    return render_template('file.html', file_properties={
-        "filename": session["filename"],
-        "filepath": session["filepath"],
-        "password": session["password"]
-    })
+    if session and session["filename"] and session["filepath"] and session["password"]:
+        return render_template('file.html', 
+            file_properties={
+                "filename": session["filename"],
+                "filepath": session["filepath"],
+                "password": session["password"]
+            }
+        )
+    else:
+        return redirect('/')
 
 
 @app.route('/uploadfile', methods=["POST"])

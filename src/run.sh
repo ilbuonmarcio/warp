@@ -1,1 +1,1 @@
-flask run --port 33456
+FLASK_DEBUG=1 flask run --port 33456

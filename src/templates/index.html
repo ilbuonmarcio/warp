@@ -5,20 +5,87 @@
     <head>
         <title>warp | upload</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
+        <style>
+        
+        #dropzone {
+            background: #ffffff;
+            border-radius: 32px;
+            border: 4px dashed rgb(127, 127, 127);
+            border-image: none;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 48px;
+        }
+
+        #dropzone-wrapper {
+            margin-left: 32px;
+            margin-right: 32px;
+        }
+
+        body, html {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dz-message span {
+            font-size: 2em;
+            color: #777777;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-big {
+            font-size: 4em;
+        }
+
+        .text-medium {
+            font-size: 1.5em;
+        }
+
+        .text-small {
+            font-size: 1em;
+        }
+
+        #title {
+            margin: 0;
+            padding-bottom: 10px;
+            color: white;
+            background-color: black;
+        }
+
+        #subtitle {
+            margin-top: 48px;
+            margin-bottom: 48px;
+            padding: 8px;
+        }
+
+        </style>
     </head>
 
     <body>
-        <form
-            action="/uploadfile"
-            class="dropzone"
-            id="dropzone">
-        </form>
+
+        <h1 id="title" class="text-center text-big">warp</h1>
+        <h4 id="subtitle" class="text-center text-medium">a simple, yet powerful temporary<br>file sharing service with file encryption.</h4>
+
+        <div id="dropzone-wrapper">
+            <form
+                action="/uploadfile"
+                class="dropzone"
+                id="dropzone">
+            </form>
+        </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
 
         <script>
         
         Dropzone.options.dropzone = {
+            dictDefaultMessage: "drop files here to upload",
             paramName: 'file',
             maxFiles: 1,
             maxFilesize: 5,

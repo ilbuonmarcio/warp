@@ -24,7 +24,6 @@ def root():
 
 @app.route('/getfile/<path:path>', methods=["GET"])
 def getfile(path):
-    print("filepath: " + str(path))
     return render_template('file.html', file_properties={
         "filename": session["filename"],
         "filepath": session["filepath"],

@@ -4,12 +4,21 @@
 
     <head>
         <title>warp | file {{ file_properties.filename }}</title>
+        
+        {% include 'css_deps.html' %}
+    
     </head>
 
     <body>
-        filename: {{ file_properties.filename }} <br>
-        filepath: {{ file_properties.filepath }} <br>
-        password: {{ file_properties.password }} <br>
+        {% include 'header.html' %}
+
+        filename: {{ file_properties.filename }}<br>
+        filepath: {{ file_properties.filepath }}<br>
+        password: {{ file_properties.password }}<br>
+    
+        {% include 'footer.html' %}
+
+        {% include 'js_deps.html' %}
     </body>
 
 </html>

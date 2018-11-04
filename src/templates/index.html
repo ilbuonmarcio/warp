@@ -4,110 +4,15 @@
 
     <head>
         <title>warp | upload</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
-        <style>
         
-        #dropzone {
-            background: #ffffff;
-            border-radius: 32px;
-            border: 4px dashed rgb(230, 230, 230);
-            border-image: none;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 48px;
-            margin-bottom: 64px;
-            margin-top: 32px;
-        }
+        {% include 'css_deps.html' %}
 
-        #dropzone-wrapper {
-            margin-left: 32px;
-            margin-right: 32px;
-        }
-
-        .dz-preview {
-            width: 100%;
-            margin: 0 !important;
-        }
-
-        .dz-remove {
-            color: red;
-            text-decoration: none;
-            margin-top: 8px;
-        }
-
-        .dz-image {
-            width: 100% !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-            background-image: none !important;
-            background-color: #ffffff !important;
-            border-radius: 8px;
-        }
-
-        body, html {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #303030;
-        }
-
-        .dz-message span {
-            font-size: 2em;
-            color: #555555;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .text-big {
-            font-size: 4em;
-        }
-
-        .text-medium {
-            font-size: 1.5em;
-        }
-
-        .text-small {
-            font-size: 1em;
-        }
-
-        .text-extrasmall {
-            font-size: 0.7em;
-        }
-
-        #title {
-            margin: 0;
-            padding-bottom: 10px;
-            color: white;
-            background-color: #303030;
-        }
-
-        #subtitle {
-            margin-top: 48px;
-            margin-bottom: 48px;
-            padding: 8px;
-        }
-
-        #footer {
-            background-color: #303030;
-            color: white;
-            padding: 16px;
-            margin: 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        </style>
     </head>
 
     <body>
+        {% include 'header.html' %}
 
-        <h1 id="title" class="text-center text-big">warp.</h1>
-        <h4 id="subtitle" class="text-center text-medium">a simple, yet powerful temporary<br>file sharing service with integrated file encryption.</h4>
+        <h4 id="subtitle" class="text-center text-medium">a simple, yet powerful temporary<br>file sharing service with integrated full-file encryption.</h4>
 
         <div id="dropzone-wrapper">
             <form
@@ -117,25 +22,25 @@
             </form>
         </div>
 
-        <h4 id="footer" class="text-center text-extrasmall">proudly powered by open source software.</h4>
+        {% include 'footer.html' %}
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+        {% include 'js_deps.html' %}
 
         <script>
-        
-        Dropzone.options.dropzone = {
-            dictDefaultMessage: "drop files here to upload",
-            paramName: 'file',
-            maxFiles: 1,
-            maxFilesize: 5,
-            addRemoveLinks: true,
-            success: function (file, response) {
-                response = JSON.parse(response);
-                setTimeout(function () {
-                    document.location.href = '/getfile/' + response.filepath;
-                }, 500);
-            }
-        }    
+
+            Dropzone.options.dropzone = {
+                dictDefaultMessage: "drop files here to upload",
+                paramName: 'file',
+                maxFiles: 1,
+                maxFilesize: 5,
+                addRemoveLinks: true,
+                success: function (file, response) {
+                    response = JSON.parse(response);
+                    setTimeout(function () {
+                        document.location.href = '/getfile/' + response.filepath;
+                    }, 500);
+                }
+            }    
 
         </script>
     </body>

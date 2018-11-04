@@ -33,8 +33,8 @@ def root():
 @app.route('/getfile/<path:path>', methods=["GET"])
 def getfile(path):
     if session and session["filename"] and session["filepath"] and session["password"]:
-        return render_template('file.html', 
-            file_properties={
+        return render_template('file.html',
+            file_properties = {
                 "filename": session["filename"],
                 "filepath": session["filepath"],
                 "password": session["password"]
@@ -67,9 +67,13 @@ def uploadfile():
             uploaded_file.save(
                 os.path.join(app.config['UPLOAD_FOLDER'], obscured_filename)
             )
-            
+
             password = ''.join(
-                random.choice(string.ascii_uppercase + string.digits) 
+                random.choice(
+                    string.ascii_uppercase +
+                    string.ascii_lowercase +
+                    string.digits
+                )
                 for _ in range(PASSWORD_LENGTH)
             )
 

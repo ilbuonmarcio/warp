@@ -12,10 +12,12 @@
     <body>
         {% include 'header.html' %}
 
-        filename: {{ file_properties.filename }}<br>
-        filepath: {{ file_properties.filepath }}<br>
-        password: {{ file_properties.password }}<br>
-    
+        <div id="uploadedfile-info-area">
+            <span class="uploadedfile-info-title">filename</span>: {{ file_properties.filename }}<br>
+            <span class="uploadedfile-info-title">filepath</span>: {{ file_properties.filepath }}<br>
+            <span class="uploadedfile-info-title">password</span>: {{ file_properties.password }}<br>
+        </div>
+
         {% include 'footer.html' %}
 
         {% include 'js_deps.html' %}

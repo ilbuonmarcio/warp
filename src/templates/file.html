@@ -15,14 +15,14 @@
         <div id="uploadedfile-info-area">
             
             <span class="uploadedfile-info-title">filename</span>: {{ file_properties.filename }}<br>
-            <span class="uploadedfile-info-title">filepath</span>: {{ file_properties.filepath }}<br>
+            <span class="uploadedfile-info-title">link</span>: <a href="http://127.0.0.1:33456/download/{{ file_properties.filepath }}/{{ file_properties.password }}">link</a><br>
             <span class="uploadedfile-info-title">password</span>: {{ file_properties.password }}<br>
             <button id="uploadedfile-clipboard-button" data-clipboard-target="#uploadedfile-clipboard-text">
-                Copy
+                copy to clipboard
             </button>
         </div>
         
-        <input id="uploadedfile-clipboard-text" value="filename: {{ file_properties.filename }} fileurl: http://127.0.0.1:33456/download/{{ file_properties.filepath }} password: {{ file_properties.password }}">
+        <input id="uploadedfile-clipboard-text" value="filename: {{ file_properties.filename }} link: http://127.0.0.1:33456/download/{{ file_properties.filepath }}/{{ file_properties.password }} password: {{ file_properties.password }}">
 
         {% include 'footer.html' %}
 

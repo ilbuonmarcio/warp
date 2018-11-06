@@ -1,7 +1,8 @@
-from flask import Flask, request, Response, render_template, redirect, send_from_directory, session
+from flask import Flask, request, Response, render_template, redirect, send_file, session
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 from cryptography.fernet import Fernet
+import io
 import os
 import json
 import uuid
@@ -28,6 +29,27 @@ app.config['SESSION_COOKIE_PATH'] = '/'
 @app.route('/', methods=["GET"])
 def root():
     return render_template('index.html')
+
+
+@app.route('/download/<path:path>', methods=['GET'])
+def download(path):
+    filename, password = path.split('/')
+    for _, _, files_on_storage in os.walk(UPLOAD_FOLDER):
+        if filename not in files_on_storage:
+            return 'file not found'
+
+    with open(UPLOAD_FOLDER + filename, 'rb') as encrypted_file:
+        encrypted_buffer = encrypted_file.read()
+
+        f = Fernet(password)
+
+        decrypted_buffer = f.decrypt(encrypted_buffer)
+        
+        return send_file(
+            io.BytesIO(decrypted_buffer),
+            attachment_filename="warp_file",
+            mimetype="application/octet-stream"
+        )
 
 
 @app.route('/showupload/<path:path>', methods=["GET"])

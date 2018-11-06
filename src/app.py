@@ -1,6 +1,7 @@
 from flask import Flask, request, Response, render_template, redirect, send_from_directory, session
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
+from cryptography.fernet import Fernet
 import os
 import json
 import time
@@ -9,12 +10,15 @@ import hashlib
 import uuid
 import string
 import base64
+import logging
 
 UPLOAD_FOLDER = './uploads/'
 TEMPLATE_FOLDER = './templates/'
 PASSWORD_LENGTH = 32
 MAX_CONTENT_LENGTH = 5 * 1024 * 1024
 SECRET_KEY_LENGTH = 24
+
+logging.basicConfig(filename='logging.log', level=logging.DEBUG)
 
 app = Flask(__name__, template_folder=TEMPLATE_FOLDER)
 app.debug = True
@@ -30,7 +34,7 @@ def root():
     return render_template('index.html')
 
 
-@app.route('/getfile/<path:path>', methods=["GET"])
+@app.route('/showupload/<path:path>', methods=["GET"])
 def getfile(path):
     if session and session["filename"] and session["filepath"] and session["password"]:
         return render_template('file.html',
@@ -68,14 +72,18 @@ def uploadfile():
                 os.path.join(app.config['UPLOAD_FOLDER'], obscured_filename)
             )
 
-            password = ''.join(
-                random.choice(
-                    string.ascii_uppercase +
-                    string.ascii_lowercase +
-                    string.digits
-                )
-                for _ in range(PASSWORD_LENGTH)
+            password = Fernet.generate_key()
+
+            f = Fernet(password)
+
+            encrypted_buffer = f.encrypt(
+                open(UPLOAD_FOLDER + obscured_filename, "rb").read()
             )
+
+            with open(
+                UPLOAD_FOLDER + obscured_filename, "wb"
+            ) as encrypted_file:
+                encrypted_file.write(encrypted_buffer)
 
             json_response = {
                 'filepath': obscured_filename
@@ -83,7 +91,7 @@ def uploadfile():
 
             session['filename'] = original_filename
             session['filepath'] = obscured_filename
-            session['password'] = password
+            session['password'] = password.decode('utf-8')
 
             return json.dumps(json_response)
 

@@ -3,7 +3,7 @@
 <html>
 
     <head>
-        <title>warp | file {{ file_properties.filename }}</title>
+        <title>warp | file: {{ file_properties.filename }}</title>
         
         {% include 'css_deps.html' %}
     
@@ -13,14 +13,24 @@
         {% include 'header.html' %}
 
         <div id="uploadedfile-info-area">
+            
             <span class="uploadedfile-info-title">filename</span>: {{ file_properties.filename }}<br>
             <span class="uploadedfile-info-title">filepath</span>: {{ file_properties.filepath }}<br>
             <span class="uploadedfile-info-title">password</span>: {{ file_properties.password }}<br>
+            <button id="uploadedfile-clipboard-button" data-clipboard-target="#uploadedfile-clipboard-text">
+                Copy
+            </button>
         </div>
+        
+        <input id="uploadedfile-clipboard-text" value="filename: {{ file_properties.filename }} fileurl: http://127.0.0.1:33456/download/{{ file_properties.filepath }} password: {{ file_properties.password }}">
 
         {% include 'footer.html' %}
 
         {% include 'js_deps.html' %}
+
+        <script>
+            var clipboard = new ClipboardJS('#uploadedfile-clipboard-button');
+        </script>
     </body>
 
 </html>

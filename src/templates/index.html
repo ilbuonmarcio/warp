@@ -37,7 +37,7 @@
                 success: function (file, response) {
                     response = JSON.parse(response);
                     setTimeout(function () {
-                        document.location.href = '/getfile/' + response.filepath;
+                        document.location.href = '/showupload/' + response.filepath;
                     }, 500);
                 }
             }    

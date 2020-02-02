@@ -13,3 +13,5 @@ http://localhost:33456
 ```
 
 And see `warp` in all it's glory!
+
+*Note: this container is accessible from all sources, due to it's bindings on address `0.0.0.0`*
